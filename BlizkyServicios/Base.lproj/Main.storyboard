@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="4M8-8R-e1T">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="DUd-xe-lrb">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
@@ -66,7 +66,7 @@
                                 </constraints>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="YlA-Te-Pjx"/>
@@ -162,7 +162,7 @@
                                 </constraints>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" secureTextEntry="YES"/>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="iRS-m8-HRz"/>
@@ -182,6 +182,9 @@
                                 <state key="normal" title="Staff" backgroundImage="unselected.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="staffButtonPressed:" destination="bs8-u5-uUj" eventType="touchUpInside" id="ssb-d6-c4k"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vRr-4o-3aV">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
@@ -204,6 +207,9 @@
                                         <include reference="ylm-Ow-l0A"/>
                                     </mask>
                                 </variation>
+                                <connections>
+                                    <action selector="serviceButtonPressed:" destination="bs8-u5-uUj" eventType="touchUpInside" id="Ts6-Pg-pUP"/>
+                                </connections>
                             </button>
                         </subviews>
                         <animations/>
@@ -303,7 +309,14 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="Log in" id="Ckl-mU-Qb0"/>
+                    <navigationItem key="navigationItem" title="Log in" id="Ckl-mU-Qb0">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="ga4-qF-C2c">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="cancelButtonPressed:" destination="bs8-u5-uUj" id="JOV-AA-1gY"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="emailTextfield" destination="cSd-Qe-UpO" id="CPZ-wR-HeI"/>
                         <outlet property="passwordTextfield" destination="Deb-Fw-RT6" id="ELd-dm-lvC"/>
@@ -313,7 +326,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qqp-Qu-YmK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1906.5" y="1296"/>
+            <point key="canvasLocation" x="-988.5" y="1296"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="LgS-ic-axt">
@@ -336,7 +349,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xuW-tr-Okh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-313.5" y="1021.5"/>
+            <point key="canvasLocation" x="604.5" y="1021.5"/>
         </scene>
         <!--Create Profile-->
         <scene sceneID="2vf-qj-ofc">
@@ -942,7 +955,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0ku-iz-g1q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="493.5" y="1021.5"/>
+            <point key="canvasLocation" x="1411.5" y="1021.5"/>
         </scene>
         <!--Create Account-->
         <scene sceneID="3GD-4d-SOc">
@@ -966,13 +979,14 @@
                                 </constraints>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="bm2-rA-2vn"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="44" y="247" width="312" height="30"/>
                                     <mask key="constraints">
                                         <include reference="bm2-rA-2vn"/>
                                     </mask>
@@ -996,7 +1010,8 @@
                                         <exclude reference="rWM-2N-2QP"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="44" y="139" width="92" height="28"/>
                                     <mask key="constraints">
                                         <exclude reference="QFE-43-Dhw"/>
                                         <include reference="ive-II-N7G"/>
@@ -1035,13 +1050,14 @@
                                 </constraints>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="TPr-M3-a1b"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="44" y="299" width="312" height="30"/>
                                     <mask key="constraints">
                                         <include reference="TPr-M3-a1b"/>
                                     </mask>
@@ -1055,6 +1071,9 @@
                                 <state key="normal" title="Staff" backgroundImage="unselected.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="200" y="175" width="156" height="28"/>
+                                </variation>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qyb-bk-bBg">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
@@ -1072,7 +1091,8 @@
                                         <exclude reference="oCe-cw-VjJ"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="44" y="175" width="156" height="28"/>
                                     <mask key="constraints">
                                         <include reference="oCe-cw-VjJ"/>
                                     </mask>
@@ -1093,7 +1113,8 @@
                                         <exclude reference="iKA-Gx-juK"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="44" y="351" width="312" height="30"/>
                                     <mask key="constraints">
                                         <include reference="iKA-Gx-juK"/>
                                     </mask>
@@ -1218,11 +1239,14 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1_login_servicio_ios.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="2YB-Tc-sxT">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <animations/>
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="0.0" y="64" width="400" height="736"/>
+                                </variation>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yvW-oX-BMx">
                                 <rect key="frame" x="64" y="680" width="181" height="30"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Already have an account?" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4od-m3-2td">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Already have an account?" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4od-m3-2td">
                                         <rect key="frame" x="0.0" y="0.0" width="139" height="30"/>
                                         <animations/>
                                         <constraints>
@@ -1244,7 +1268,7 @@
                                             </mask>
                                         </variation>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FMa-Of-tQb">
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FMa-Of-tQb">
                                         <rect key="frame" x="139" y="0.0" width="42" height="30"/>
                                         <animations/>
                                         <constraints>
@@ -1330,11 +1354,11 @@
                                 <exclude reference="S1k-dt-bUm"/>
                                 <exclude reference="iHn-pS-hdX"/>
                                 <exclude reference="imI-6a-4ah"/>
+                                <exclude reference="7W6-cM-M9m"/>
+                                <exclude reference="Vsz-IU-W8H"/>
                                 <exclude reference="B0f-CN-VlQ"/>
                                 <exclude reference="J87-M5-pZq"/>
                                 <exclude reference="wgt-2m-nwn"/>
-                                <exclude reference="7W6-cM-M9m"/>
-                                <exclude reference="Vsz-IU-W8H"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -1349,18 +1373,18 @@
                                 <exclude reference="S1k-dt-bUm"/>
                                 <exclude reference="iHn-pS-hdX"/>
                                 <include reference="imI-6a-4ah"/>
+                                <include reference="7W6-cM-M9m"/>
+                                <include reference="Vsz-IU-W8H"/>
                                 <include reference="B0f-CN-VlQ"/>
                                 <include reference="J87-M5-pZq"/>
                                 <include reference="wgt-2m-nwn"/>
-                                <include reference="7W6-cM-M9m"/>
-                                <include reference="Vsz-IU-W8H"/>
                             </mask>
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="X7x-jZ-5in"/>
                     <connections>
                         <segue destination="HHP-jh-bjs" kind="show" identifier="createAccountSegue" id="ZsV-bz-fTH"/>
-                        <segue destination="bs8-u5-uUj" kind="show" id="WJA-bm-7Qr"/>
+                        <segue destination="gOw-nG-f8U" kind="presentation" identifier="logInSegue" id="WJA-bm-7Qr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a68-R1-doY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1376,6 +1400,7 @@
                         <viewControllerLayoutGuide type="bottom" id="hMm-91-PRv"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="saa-MW-0zR">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2zD-No-w5R">
@@ -1396,10 +1421,10 @@
                                 <exclude reference="2zD-No-w5R"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="vjc-Ci-fBv"/>
                                 <exclude reference="Bre-Tg-P9e"/>
                                 <exclude reference="mIp-fj-Qif"/>
                                 <exclude reference="uGe-Kn-mVO"/>
-                                <exclude reference="vjc-Ci-fBv"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -1407,10 +1432,10 @@
                                 <include reference="2zD-No-w5R"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="vjc-Ci-fBv"/>
                                 <include reference="Bre-Tg-P9e"/>
                                 <include reference="mIp-fj-Qif"/>
                                 <include reference="uGe-Kn-mVO"/>
-                                <include reference="vjc-Ci-fBv"/>
                             </mask>
                         </variation>
                     </view>
@@ -1420,23 +1445,24 @@
             <point key="canvasLocation" x="-3624" y="231"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="Fxo-uC-Toc">
+        <scene sceneID="dVm-yL-Wq3">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="4M8-8R-e1T" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gOw-nG-f8U" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Yhf-2M-MxV">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="knv-QS-i3H">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
+                        <color key="barTintColor" red="0.92941176469999998" green="0.1450980392" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="DUd-xe-lrb" kind="relationship" relationship="rootViewController" id="SNN-ik-KPD"/>
+                        <segue destination="bs8-u5-uUj" kind="relationship" relationship="rootViewController" id="yLz-G7-ApO"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6hc-JU-88K" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Bvk-th-dLF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3930" y="949.5"/>
+            <point key="canvasLocation" x="-1906.5" y="1296"/>
         </scene>
     </scenes>
     <resources>
