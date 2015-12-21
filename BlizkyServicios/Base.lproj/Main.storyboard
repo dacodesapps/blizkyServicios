@@ -41,6 +41,7 @@
             <string>OpenSans-Semibold</string>
             <string>OpenSans-Semibold</string>
             <string>OpenSans-Semibold</string>
+            <string>OpenSans-Semibold</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -340,7 +341,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xuW-tr-Okh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1522.5" y="1021.5"/>
+            <point key="canvasLocation" x="754.5" y="537"/>
         </scene>
         <!--Create Profile-->
         <scene sceneID="2vf-qj-ofc">
@@ -918,7 +919,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0ku-iz-g1q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2329.5" y="1021.5"/>
+            <point key="canvasLocation" x="1561.5" y="537"/>
         </scene>
         <!--Create Account-->
         <scene sceneID="3GD-4d-SOc">
@@ -941,7 +942,7 @@
                                 </constraints>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress"/>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="bm2-rA-2vn"/>
@@ -1000,6 +1001,9 @@
                                         <include reference="cxg-na-igu"/>
                                     </mask>
                                 </variation>
+                                <connections>
+                                    <action selector="nextButtonPressed:" destination="HHP-jh-bjs" eventType="touchUpInside" id="6we-El-97W"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="       Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FJe-mF-ieo">
                                 <rect key="frame" x="-25" y="-30" width="97" height="30"/>
@@ -1009,7 +1013,7 @@
                                 </constraints>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" secureTextEntry="YES"/>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="TPr-M3-a1b"/>
@@ -1069,7 +1073,7 @@
                                 </constraints>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="phonePad"/>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="iKA-Gx-juK"/>
@@ -1179,13 +1183,21 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="Create Account" id="wY6-Cv-Wvw"/>
+                    <navigationItem key="navigationItem" title="Create Account" id="wY6-Cv-Wvw">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="38y-fZ-KqU">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="cancelButtonDidPressed:" destination="HHP-jh-bjs" id="vR4-gz-A0i"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="emailTextField" destination="6yN-sQ-Fjr" id="2aI-il-iOd"/>
                         <outlet property="passwordTextField" destination="FJe-mF-ieo" id="rA6-qC-wxF"/>
                         <outlet property="phoneNumberTextField" destination="vfd-UE-7PS" id="fIw-Yc-Rlc"/>
                         <outlet property="serviceButton" destination="Qyb-bk-bBg" id="RkM-jn-eoS"/>
                         <outlet property="staffButton" destination="0Bu-1S-AZ5" id="eEb-gz-vMY"/>
+                        <segue destination="kib-Sy-hI0" kind="presentation" identifier="saludoSegue" id="muJ-ol-Mk3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="33E-h3-n5x" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1350,10 +1362,10 @@
             </objects>
             <point key="canvasLocation" x="-3012" y="949.5"/>
         </scene>
-        <!--View Controller-->
+        <!--Saludo View Controller-->
         <scene sceneID="dHS-yL-2I8">
             <objects>
-                <viewController id="kib-Sy-hI0" sceneMemberID="viewController">
+                <viewController id="kib-Sy-hI0" customClass="SaludoViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hKN-wG-IZ7"/>
                         <viewControllerLayoutGuide type="bottom" id="hMm-91-PRv"/>
@@ -1362,13 +1374,40 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2zD-No-w5R">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="3_Pantalla_saludo_nuevo_servicio.png" translatesAutoresizingMaskIntoConstraints="NO" id="2zD-No-w5R">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hgA-F7-N7i">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <color key="backgroundColor" red="0.92941176469999998" green="0.1450980392" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="VQL-ze-f90"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="OpenSans-Semibold" family="Open Sans" pointSize="16"/>
+                                <state key="normal" title="Next">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="VQL-ze-f90"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="VQL-ze-f90"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="nextButtonPressed:" destination="kib-Sy-hI0" eventType="touchUpInside" id="3Lb-yq-dPA"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="2zD-No-w5R" firstAttribute="leading" secondItem="saa-MW-0zR" secondAttribute="leading" id="Bre-Tg-P9e"/>
+                            <constraint firstAttribute="trailing" secondItem="hgA-F7-N7i" secondAttribute="trailing" constant="44" id="Obd-Wh-a6D"/>
+                            <constraint firstItem="hgA-F7-N7i" firstAttribute="leading" secondItem="saa-MW-0zR" secondAttribute="leading" constant="44" id="eRN-LA-Iy2"/>
+                            <constraint firstItem="hMm-91-PRv" firstAttribute="top" secondItem="hgA-F7-N7i" secondAttribute="bottom" constant="36" id="g0x-2T-hjR"/>
                             <constraint firstAttribute="trailing" secondItem="2zD-No-w5R" secondAttribute="trailing" id="mIp-fj-Qif"/>
                             <constraint firstItem="2zD-No-w5R" firstAttribute="top" secondItem="hKN-wG-IZ7" secondAttribute="bottom" id="uGe-Kn-mVO"/>
                             <constraint firstItem="hMm-91-PRv" firstAttribute="top" secondItem="2zD-No-w5R" secondAttribute="bottom" id="vjc-Ci-fBv"/>
@@ -1376,30 +1415,41 @@
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="2zD-No-w5R"/>
+                                <exclude reference="hgA-F7-N7i"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="vjc-Ci-fBv"/>
                                 <exclude reference="Bre-Tg-P9e"/>
                                 <exclude reference="mIp-fj-Qif"/>
                                 <exclude reference="uGe-Kn-mVO"/>
+                                <exclude reference="Obd-Wh-a6D"/>
+                                <exclude reference="eRN-LA-Iy2"/>
+                                <exclude reference="g0x-2T-hjR"/>
+                                <exclude reference="vjc-Ci-fBv"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
                                 <include reference="2zD-No-w5R"/>
+                                <include reference="hgA-F7-N7i"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="vjc-Ci-fBv"/>
                                 <include reference="Bre-Tg-P9e"/>
                                 <include reference="mIp-fj-Qif"/>
                                 <include reference="uGe-Kn-mVO"/>
+                                <include reference="Obd-Wh-a6D"/>
+                                <include reference="eRN-LA-Iy2"/>
+                                <include reference="g0x-2T-hjR"/>
+                                <include reference="vjc-Ci-fBv"/>
                             </mask>
                         </variation>
                     </view>
+                    <connections>
+                        <segue destination="zsU-Ko-96H" kind="presentation" identifier="createProfileSegue" id="hPx-fl-LT7"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cVs-YU-v37" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3624" y="231"/>
+            <point key="canvasLocation" x="-108" y="537"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="dVm-yL-Wq3">
@@ -1442,6 +1492,7 @@
     </scenes>
     <resources>
         <image name="1_login_servicio_ios.jpg" width="750" height="1334"/>
+        <image name="3_Pantalla_saludo_nuevo_servicio.png" width="750" height="1334"/>
         <image name="AgregarFoto" width="112" height="135"/>
         <image name="goToCurrentLocationButton" width="20" height="19"/>
         <image name="selected.png" width="925" height="205"/>

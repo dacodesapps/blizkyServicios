@@ -101,13 +101,24 @@
         NSDictionary *dct = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
         NSLog(@"%@",dct);
         [UIApplication sharedApplication].networkActivityIndicatorVisible=NO;
-        [UIAlertController alertControllerWithTitle:@"blizky" message:@"Success" preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Blizky" message: @"success" preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        [alertController addAction:ok];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error, id responseObject) {
         NSLog(@"Error: %@", [error description]);
         
         [UIApplication sharedApplication].networkActivityIndicatorVisible=NO;
-        [UIAlertController alertControllerWithTitle:@"blizky" message:@"failure" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Blizky" message: @"Failure" preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        [alertController addAction:ok];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
     }];
 
 }
