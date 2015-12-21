@@ -13,10 +13,11 @@
 #import "MapTableViewCell.h"
 #import "LabelTableViewCell.h"
 
-@interface CreateProfileTableViewController ()<UITableViewDataSource,UITableViewDelegate, UITextViewDelegate> {
+@interface CreateProfileTableViewController ()<UITableViewDataSource,UITableViewDelegate, UITextViewDelegate,UIImagePickerControllerDelegate> {
     NSArray *heights;
     NSString*description;
     UITextView *actTxtView;
+    UIImage *imagenSeleccionada;
 }
 
 @end
@@ -28,11 +29,8 @@
     self.title = @"Create Profile";
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    imagenSeleccionada = nil;
     
     heights = @[@"200", @"46", @"46", @"198", @"46", @"96", @"26", @"46"];
 }
@@ -48,8 +46,8 @@
 
 -(void)checkCellsHeigths {
     NSMutableArray *array = [NSMutableArray new];
-    float height = 16 + ( (271.0/226.0) * self.view.bounds.size.width *0.35);
-    
+    //float height = 16 + ( (271.0/226.0) * self.view.bounds.size.width *0.35);
+    float height = 48 + (self.view.bounds.size.width *0.35);
     [array addObject:@(height)];
     
     NSIndexPath *path = [NSIndexPath indexPathForRow:1 inSection:0];
@@ -109,12 +107,23 @@
     NSString *reuseIdentifier = [NSString stringWithFormat:@"cell%d",(int) indexPath.row + 1];
     //NSString *reuseIdentifier = @"cell1";
     
-    if (indexPath.row == 0 || indexPath.row == 7) {
+    if (indexPath.row == 0 || indexPath.row == 4 || indexPath.row == 7) {
         OneButtonTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
+        cell.button.tag = indexPath.row;
+        if (indexPath.row == 0) {
+            UIImage *imagen = imagenSeleccionada ? imagenSeleccionada : [UIImage imageNamed:@"AgregarFoto"];
+            [cell.button setBackgroundImage:imagen forState:UIControlStateNormal];
+            if (imagenSeleccionada) {
+                cell.button.layer.cornerRadius = cell.button.frame.size.width / 2.0;
+                cell.button.clipsToBounds = YES;
+            }
+        }
+        
+        [self configureButtons:cell.button];
         
         return cell;
     }
-    else if (indexPath.row == 1 || indexPath.row == 2 || indexPath.row == 4 || indexPath.row == 5) {
+    else if (indexPath.row == 1 || indexPath.row == 2 || indexPath.row == 5) {
         OneTextViewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
         cell.textView.tag = indexPath.row;
         cell.textView.scrollEnabled = NO;
@@ -140,16 +149,60 @@
     return [heights[indexPath.row] floatValue];
 }
 
+#pragma mark - Acciones de los botones
+
+-(void)configureButtons:(UIButton *)button{
+    switch (button.tag) {
+        case 0:
+            [button addTarget:self action:@selector(accionBoton1) forControlEvents:UIControlEventTouchUpInside];
+            break;
+        case 4:
+            break;
+        case 7:
+            break;
+        default:
+            break;
+    }
+}
+
+-(void)accionBoton1 {
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    picker.allowsEditing = YES;
+    picker.delegate = self;
+    picker.navigationBarHidden = YES;
+    picker.toolbarHidden = YES;
+    
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    
+    [self presentViewController:picker animated:YES completion:nil];
+}
+
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    imagenSeleccionada = info[UIImagePickerControllerEditedImage];
+    
+    int width = imagenSeleccionada.size.width;
+    int height = imagenSeleccionada.size.height;
+    if(width == height || width-height==24) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+        [self.tableView reloadData];
+    }
+    else {
+        NSString * str = @"Error: The image has to be square, please resize the image or pick another one.";
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Blizky" message: str preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction* ok = [UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleDefault handler:nil];
+        [alertController addAction:ok];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+}
+
 #pragma mark - TextViewDelegate
 
 -(void)textViewDidBeginEditing:(UITextView *)textView {
     textView.text = @"";
-    
-//    CGRect f = self.tableView.frame;
-//    f.origin = CGPointZero;
-//    f.size = CGSizeMake(self.view.frame.size.width, self.view.frame.size.height- 216);
-//    self.tableView.frame = f;
-    
     
     NSIndexPath *path = [NSIndexPath indexPathForRow:textView.tag inSection:0];
     
@@ -157,61 +210,15 @@
     
 }
 
-//- (void)keyboardWillShow:(NSNotification*)notification {
-//    NSDictionary *info = [notification userInfo];
-//    CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
-//    CGFloat deltaHeight = kbSize.height - _currentKeyboardHeight;
-//    // Write code to adjust views accordingly using deltaHeight
-//    
-//    float offset = self.tableView.contentSize.height - self.view.bounds.size.height - deltaHeight;
-//    if (actTxtView.tag == 1) {
-//        offset = 0;
-//    }
-//    
-//    CGRect f = self.tableView.frame;
-//    f.origin = CGPointZero;
-//    f.size = CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height + - abs((int)offset));
-//    self.tableView.frame = f;
-//    
-//    _currentKeyboardHeight = kbSize.height;
-//}
-//
-//- (void)keyboardWillHide:(NSNotification*)notification {
-//    NSDictionary *info = [notification userInfo];
-//    CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
-//    // Write code to adjust views accordingly using kbSize.height
-//    
-//
-//    
-//    CGRect f = self.tableView.frame;
-//    f.origin = CGPointMake(0, 0);
-//    f.size = CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height);
-//    self.tableView.frame = f;
-//    
-//    _currentKeyboardHeight = 0.0f;
-//}
+
 
 -(void)textViewDidEndEditing:(UITextView *)textView {
-    
-//    [UIView animateWithDuration:0.22 animations:^{
-//        CGRect f = self.tableView.frame;
-//        f.origin = CGPointMake(0, 0);
-//        self.tableView.frame = f;
-//    }];
-    
-    
-//    CGRect f = self.tableView.frame;
-//    f.origin = CGPointZero;
-//    f.size = CGSizeMake(self.view.frame.size.width, self.view.frame.size.height);
-//    self.tableView.frame = f;
     
     if ([textView.text isEqualToString:@""]) {
         if (textView.tag == 1) {
             textView.text = @"  Name (yours or your business)";
         } else if (textView.tag == 2) {
             textView.text = @"  Type in your address";
-        } else if (textView.tag == 4) {
-            textView.text = @"   Type in your kind of service(personal trainer, restourant...)";
         } else if (textView.tag == 5) {
             textView.text = @"Description: we'll use this description in your profile and for customers to search for you";
         }

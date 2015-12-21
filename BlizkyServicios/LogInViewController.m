@@ -115,7 +115,7 @@
         [UIApplication sharedApplication].networkActivityIndicatorVisible=NO;
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Blizky" message: @"Failure" preferredStyle:UIAlertControllerStyleAlert];
         
-        UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        UIAlertAction* ok = [UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleDefault handler:nil];
         [alertController addAction:ok];
         
         [self presentViewController:alertController animated:YES completion:nil];
