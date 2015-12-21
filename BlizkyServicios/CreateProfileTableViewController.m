@@ -25,7 +25,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"Hla";
+    self.title = @"Create Profile";
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     // Uncomment the following line to preserve selection between presentations.

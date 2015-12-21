@@ -38,7 +38,9 @@
     // Pass the selected object to the new view controller.
     
     if([segue.identifier isEqualToString:@"createProfileSegue"]) {
-        CreateProfileTableViewController *destVC = (CreateProfileTableViewController *) segue.destinationViewController;
+        
+        UINavigationController *navController = (UINavigationController *) segue.destinationViewController;
+        CreateProfileTableViewController *destVC = (CreateProfileTableViewController *) navController.topViewController;
         destVC.password = self.password;
         destVC.phonenumber = self.phonenumber;
         destVC.email = self.email;
