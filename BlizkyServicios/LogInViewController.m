@@ -95,7 +95,7 @@
                                 @"password":self.passwordTextfield.text
                                 };
     
-    NSString *link = self.serviceButton.selected ? @"http://69.46.5.166:3002/api/Suppliers/login" :@"http://69.46.5.166:3002/api/Staff/login";
+    NSString *link = self.serviceButton.selected ? @"http://69.46.5.166:3002/api/Suppliers/login" : @"http://69.46.5.166:3002/api/Staff/login";
     
     [manager POST:link parameters: parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dct = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];

@@ -17,6 +17,7 @@
 		698A7F561C043A7B00B17B4C /* googledoodle.png in Resources */ = {isa = PBXBuildFile; fileRef = 698A7F551C043A7B00B17B4C /* googledoodle.png */; };
 		698A7F581C043AB700B17B4C /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 698A7F571C043AB700B17B4C /* star.png */; };
 		698A7F5D1C04417F00B17B4C /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = 698A7F5C1C04417F00B17B4C /* map.png */; };
+		FB05E1A11C2860DA0023E3A0 /* CreateAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB05E1A01C2860DA0023E3A0 /* CreateAccountViewController.m */; };
 		FB0ACC671C246A8F0017A2BB /* InicioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB0ACC661C246A8F0017A2BB /* InicioViewController.m */; };
 		FB0ACC6A1C246B7A0017A2BB /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB0ACC691C246B7A0017A2BB /* LogInViewController.m */; };
 		FB2B23521C2229FC003C537D /* 1_login_servicio_ios.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FB2B23511C2229FC003C537D /* 1_login_servicio_ios.jpg */; };
@@ -86,6 +87,8 @@
 		698A7F551C043A7B00B17B4C /* googledoodle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = googledoodle.png; sourceTree = "<group>"; };
 		698A7F571C043AB700B17B4C /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
 		698A7F5C1C04417F00B17B4C /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map.png; sourceTree = "<group>"; };
+		FB05E19F1C2860DA0023E3A0 /* CreateAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateAccountViewController.h; sourceTree = "<group>"; };
+		FB05E1A01C2860DA0023E3A0 /* CreateAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateAccountViewController.m; sourceTree = "<group>"; };
 		FB0ACC651C246A8F0017A2BB /* InicioViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InicioViewController.h; sourceTree = "<group>"; };
 		FB0ACC661C246A8F0017A2BB /* InicioViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InicioViewController.m; sourceTree = "<group>"; };
 		FB0ACC681C246B7A0017A2BB /* LogInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogInViewController.h; sourceTree = "<group>"; };
@@ -201,6 +204,8 @@
 				FB0ACC661C246A8F0017A2BB /* InicioViewController.m */,
 				FB0ACC681C246B7A0017A2BB /* LogInViewController.h */,
 				FB0ACC691C246B7A0017A2BB /* LogInViewController.m */,
+				FB05E19F1C2860DA0023E3A0 /* CreateAccountViewController.h */,
+				FB05E1A01C2860DA0023E3A0 /* CreateAccountViewController.m */,
 				FBF198911C1F8DA200F72D97 /* Create profile */,
 				698A7F281C0430CE00B17B4C /* Main.storyboard */,
 				698A7F2B1C0430CE00B17B4C /* Assets.xcassets */,
@@ -460,6 +465,7 @@
 				FBF198841C1F8B5100F72D97 /* CreateProfileTableViewController.m in Sources */,
 				FBB6AF681C2495AB00F742B1 /* AFURLSessionManager.m in Sources */,
 				FBB6AF671C2495AB00F742B1 /* AFURLResponseSerialization.m in Sources */,
+				FB05E1A11C2860DA0023E3A0 /* CreateAccountViewController.m in Sources */,
 				FB0ACC6A1C246B7A0017A2BB /* LogInViewController.m in Sources */,
 				FBB6AF621C2495AB00F742B1 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				FBB6AF661C2495AB00F742B1 /* AFURLRequestSerialization.m in Sources */,
