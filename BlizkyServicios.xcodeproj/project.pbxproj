@@ -23,6 +23,7 @@
 		FB0ACC6A1C246B7A0017A2BB /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB0ACC691C246B7A0017A2BB /* LogInViewController.m */; };
 		FB2B23521C2229FC003C537D /* 1_login_servicio_ios.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FB2B23511C2229FC003C537D /* 1_login_servicio_ios.jpg */; };
 		FB2B23541C22392F003C537D /* 3_Pantalla_saludo_nuevo_servicio.png in Resources */ = {isa = PBXBuildFile; fileRef = FB2B23531C22392F003C537D /* 3_Pantalla_saludo_nuevo_servicio.png */; };
+		FB3CBC4C1C29279E004DDC9F /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB3CBC4B1C29279E004DDC9F /* MapViewController.m */; };
 		FB681A971C1B604C00FACD7A /* selected.png in Resources */ = {isa = PBXBuildFile; fileRef = FB681A951C1B604C00FACD7A /* selected.png */; };
 		FB681A981C1B604C00FACD7A /* unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = FB681A961C1B604C00FACD7A /* unselected.png */; };
 		FBB6AF2B1C248C7100F742B1 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FBB6AF211C248C7100F742B1 /* OpenSans-Bold.ttf */; };
@@ -98,6 +99,8 @@
 		FB0ACC691C246B7A0017A2BB /* LogInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogInViewController.m; sourceTree = "<group>"; };
 		FB2B23511C2229FC003C537D /* 1_login_servicio_ios.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1_login_servicio_ios.jpg; sourceTree = "<group>"; };
 		FB2B23531C22392F003C537D /* 3_Pantalla_saludo_nuevo_servicio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 3_Pantalla_saludo_nuevo_servicio.png; sourceTree = "<group>"; };
+		FB3CBC4A1C29279E004DDC9F /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		FB3CBC4B1C29279E004DDC9F /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		FB681A951C1B604C00FACD7A /* selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selected.png; sourceTree = "<group>"; };
 		FB681A961C1B604C00FACD7A /* unselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unselected.png; sourceTree = "<group>"; };
 		FBB6AF211C248C7100F742B1 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
@@ -249,6 +252,21 @@
 			path = BlizkyServiciosUITests;
 			sourceTree = "<group>";
 		};
+		FB3CBC4D1C2927A7004DDC9F /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				FBF198881C1F8BEC00F72D97 /* OneButtonTableViewCell.h */,
+				FBF198891C1F8BEC00F72D97 /* OneButtonTableViewCell.m */,
+				FBF1988B1C1F8D6000F72D97 /* OneTextViewTableViewCell.h */,
+				FBF1988C1C1F8D6000F72D97 /* OneTextViewTableViewCell.m */,
+				FBF1988E1C1F8D7800F72D97 /* MapTableViewCell.h */,
+				FBF1988F1C1F8D7800F72D97 /* MapTableViewCell.m */,
+				FBF198921C1F8E6900F72D97 /* LabelTableViewCell.h */,
+				FBF198931C1F8E6900F72D97 /* LabelTableViewCell.m */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
 		FBB6AF351C248C7F00F742B1 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -299,14 +317,9 @@
 			children = (
 				FBF198821C1F8B5100F72D97 /* CreateProfileTableViewController.h */,
 				FBF198831C1F8B5100F72D97 /* CreateProfileTableViewController.m */,
-				FBF198881C1F8BEC00F72D97 /* OneButtonTableViewCell.h */,
-				FBF198891C1F8BEC00F72D97 /* OneButtonTableViewCell.m */,
-				FBF1988B1C1F8D6000F72D97 /* OneTextViewTableViewCell.h */,
-				FBF1988C1C1F8D6000F72D97 /* OneTextViewTableViewCell.m */,
-				FBF1988E1C1F8D7800F72D97 /* MapTableViewCell.h */,
-				FBF1988F1C1F8D7800F72D97 /* MapTableViewCell.m */,
-				FBF198921C1F8E6900F72D97 /* LabelTableViewCell.h */,
-				FBF198931C1F8E6900F72D97 /* LabelTableViewCell.m */,
+				FB3CBC4A1C29279E004DDC9F /* MapViewController.h */,
+				FB3CBC4B1C29279E004DDC9F /* MapViewController.m */,
+				FB3CBC4D1C2927A7004DDC9F /* Cells */,
 			);
 			name = "Create profile";
 			sourceTree = "<group>";
@@ -479,6 +492,7 @@
 				698A7F211C0430CE00B17B4C /* AppDelegate.m in Sources */,
 				FBF198941C1F8E6900F72D97 /* LabelTableViewCell.m in Sources */,
 				698A7F1E1C0430CE00B17B4C /* main.m in Sources */,
+				FB3CBC4C1C29279E004DDC9F /* MapViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

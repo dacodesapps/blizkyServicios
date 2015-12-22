@@ -9,18 +9,24 @@
 #import "CreateProfileTableViewController.h"
 #import "InicioViewController.h"
 #import "AppDelegate.h"
+#import "MapViewController.h"
 
 #import "OneButtonTableViewCell.h"
 #import "OneTextViewTableViewCell.h"
 #import "MapTableViewCell.h"
 #import "LabelTableViewCell.h"
 
-@interface CreateProfileTableViewController ()<UITableViewDataSource,UITableViewDelegate, UITextViewDelegate,UIImagePickerControllerDelegate, UIActionSheetDelegate> {
+@interface CreateProfileTableViewController ()<UITableViewDataSource,UITableViewDelegate, UITextViewDelegate,UIImagePickerControllerDelegate, CLLocationManagerDelegate, MKMapViewDelegate> {
     NSArray *heights;
     NSString*description;
     UITextView *actTxtView;
     UIImage *imagenSeleccionada;
+    MKMapView *mapView;
+    MKPointAnnotation *mapAnnotationPin;
+    BOOL alreadyLongPressed;
 }
+
+@property (strong, nonatomic) CLLocationManager *locationManager;
 
 @end
 
@@ -35,6 +41,15 @@
     imagenSeleccionada = nil;
     
     heights = @[@"200", @"46", @"46", @"198", @"46", @"96", @"26", @"46"];
+    
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
+    
+    if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
+        [self.locationManager requestWhenInUseAuthorization];
+    }
+    
+    [self.locationManager startUpdatingLocation];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -42,57 +57,10 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)viewDidLayoutSubviews {
-    //[self checkCellsHeigths];
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    alreadyLongPressed = NO;
 }
-
--(void)checkCellsHeigths {
-    NSMutableArray *array = [NSMutableArray new];
-    //float height = 16 + ( (271.0/226.0) * self.view.bounds.size.width *0.35);
-    float height = 48 + (self.view.bounds.size.width *0.35);
-    [array addObject:@(height)];
-    
-    NSIndexPath *path = [NSIndexPath indexPathForRow:1 inSection:0];
-    OneTextViewTableViewCell *cell = [self.tableView cellForRowAtIndexPath:path];
-    CGSize s = cell.textView.contentSize;
-    CGRect r = CGRectMake(35, 8, self.view.bounds.size.width - 70, s.height);
-    cell.textView.frame = r;
-    [array addObject:@(s.height)];
-    
-    path = [NSIndexPath indexPathForRow:2 inSection:0];
-    cell = [self.tableView cellForRowAtIndexPath:path];
-    s = cell.textView.contentSize;
-    r = CGRectMake(35, 8, self.view.bounds.size.width - 70, s.height);
-    cell.textView.frame = r;
-    [array addObject:@(s.height)];
-    
-    [array addObject:@(198)];
-    
-    path = [NSIndexPath indexPathForRow:4 inSection:0];
-    cell = [self.tableView cellForRowAtIndexPath:path];
-    s = cell.textView.contentSize;
-    r = CGRectMake(35, 8, self.view.bounds.size.width - 70, s.height);
-    cell.textView.frame = r;
-    [array addObject:@(s.height)];
-    
-    path = [NSIndexPath indexPathForRow:5 inSection:0];
-    cell = [self.tableView cellForRowAtIndexPath:path];
-    s = cell.textView.contentSize;
-    r = CGRectMake(35, 8, self.view.bounds.size.width - 70, s.height);
-    cell.textView.frame = r;
-    [array addObject:@(s.height)];
-    
-    [array addObject:@(26)];
-    [array addObject:@(42)];
-    
-    heights = array;
-    [self.tableView reloadData];
-}
-
-//-(void)dealloc{
-//    self.tableView.delegate=nil;
-//    self.tableView.dataSource=nil;
-//}
 
 #pragma mark - Table view data source
 
@@ -137,6 +105,13 @@
         return cell;
     } else if (indexPath.row == 3) {
         MapTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
+        mapView = cell.mapView;
+        mapView.showsUserLocation = YES;
+        [cell.goToCurrentLocation addTarget:self action:@selector(zoomToUserLocation:) forControlEvents:UIControlEventTouchUpInside];
+        UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPressGesture:)];
+        [mapView addGestureRecognizer:longPressGesture];
+        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGestureOnMap:)];
+        [mapView addGestureRecognizer:tapGesture];
         
         return cell;
     } else {
@@ -144,8 +119,6 @@
         
         return cell;
     }
-    
-    // Configure the cell...
     
     return nil;
 }
@@ -173,16 +146,14 @@
 }
 
 -(void)accionBoton1 {
-    
     if (imagenSeleccionada) {
-        
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Blizky" message:@""preferredStyle:UIAlertControllerStyleActionSheet];
         UIAlertAction *firstAction = [UIAlertAction actionWithTitle:@"Select profile pic" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-                [self showPicker];
+            [self showImagePicker];
         }];
         UIAlertAction *secondAction = [UIAlertAction actionWithTitle:@"Delete pic" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-                imagenSeleccionada = nil;
-                [self.tableView reloadData];
+            imagenSeleccionada = nil;
+            [self.tableView reloadData];
         }];
         UIAlertAction *thirdAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
         
@@ -191,17 +162,16 @@
         [alert addAction:thirdAction];
         
         [self presentViewController:alert animated:YES completion:nil];
-        
     } else {
-        [self showPicker];
+        [self showImagePicker];
     }
 }
 
--(void) showPicker {
+-(void) showImagePicker {
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     picker.allowsEditing = YES;
-    picker.delegate = self;
+    picker.delegate = (id) self;
     picker.navigationBarHidden = YES;
     picker.toolbarHidden = YES;
     
@@ -229,6 +199,49 @@
         [self presentViewController:alertController animated:YES completion:nil];
         [self dismissViewControllerAnimated:YES completion:nil];
     }
+}
+
+#pragma mark - MapKit
+
+-(void)zoomToUserLocation:(UIButton *) sender {
+    
+    if (!mapAnnotationPin) {
+        mapAnnotationPin = [MKPointAnnotation new];
+    }
+    
+    mapAnnotationPin.coordinate = mapView.userLocation.coordinate;
+    [mapView showAnnotations:@[mapAnnotationPin] animated:YES];
+    mapView.showsUserLocation = NO;
+    
+//    MKCoordinateRegion region;
+//    region.center = mapView.userLocation.coordinate;
+//    //Adjust span as you like
+//    MKCoordinateSpan span;
+//    span.latitudeDelta  = 1;
+//    span.longitudeDelta = 1;
+//    region.span = span;
+//    
+//    [mapView setRegion:region animated:YES];
+}
+
+-(void)handleLongPressGesture:(UIGestureRecognizer *) sender {
+    if (!alreadyLongPressed) {
+        alreadyLongPressed = YES;
+        [self performSegueWithIdentifier:@"showMapVC" sender:self];
+    }
+}
+
+-(void)handleTapGestureOnMap:(UIGestureRecognizer *) sender {
+    CGPoint point = [sender locationInView:mapView];
+    CLLocationCoordinate2D locCoord = [mapView convertPoint:point toCoordinateFromView:mapView];
+    if (!mapAnnotationPin) {
+        mapAnnotationPin = [MKPointAnnotation new];
+    }
+    mapAnnotationPin.coordinate = locCoord;
+    
+   // [mapView showAnnotations:@[mapAnnotationPin] animated:YES];
+    [mapView addAnnotation:mapAnnotationPin];
+    mapView.showsUserLocation = YES;
 }
 
 #pragma mark - TextViewDelegate
@@ -291,14 +304,18 @@
     
 }
 
-/*
+
  #pragma mark - Navigation
  
  // In a storyboard-based application, you will often want to do a little preparation before navigation
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
  // Get the new view controller using [segue destinationViewController].
  // Pass the selected object to the new view controller.
+     if ([segue.identifier isEqualToString:@"showMapVC"]) {
+         MapViewController *mapVC = (MapViewController *) segue.destinationViewController;
+         mapVC.annotationPin = mapAnnotationPin;
+     }
  }
- */
+ 
 
 @end
