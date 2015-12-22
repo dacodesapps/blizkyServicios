@@ -10,8 +10,15 @@
 
 @import MapKit;
 
+@protocol MapViewControllerDelegate <NSObject>
+
+-(void)goingBack:(MKPointAnnotation *) pin;
+
+@end
+
 @interface MapViewController : UIViewController
 
 @property (strong, nonatomic) MKPointAnnotation *annotationPin;
+@property (strong, nonatomic) id <MapViewControllerDelegate> delegate;
 
 @end

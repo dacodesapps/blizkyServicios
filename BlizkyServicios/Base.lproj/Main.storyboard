@@ -973,34 +973,65 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="FqJ-Lz-xmf">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                             </mapView>
+                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HP1-RA-Qe4">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="36" id="6w3-2f-FT5"/>
+                                    <constraint firstAttribute="height" constant="36" id="x4b-ka-0vL"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="goToCurrentLocationButton"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="6w3-2f-FT5"/>
+                                        <exclude reference="x4b-ka-0vL"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="6w3-2f-FT5"/>
+                                        <include reference="x4b-ka-0vL"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="zoomToUserLocationButtonPressed:" destination="mzr-xy-Qn7" eventType="touchUpInside" id="Tnf-BO-jQM"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="FqJ-Lz-xmf" secondAttribute="trailing" id="Iw1-1H-IS7"/>
+                            <constraint firstItem="HP1-RA-Qe4" firstAttribute="leading" secondItem="tTq-rm-k4v" secondAttribute="leading" constant="26" id="Ll1-GW-vEO"/>
                             <constraint firstItem="FqJ-Lz-xmf" firstAttribute="top" secondItem="ySB-De-eAV" secondAttribute="bottom" id="QLJ-qM-m0e"/>
+                            <constraint firstItem="UnV-ux-HHQ" firstAttribute="top" secondItem="HP1-RA-Qe4" secondAttribute="bottom" constant="26" id="VnW-B9-Gdq"/>
                             <constraint firstItem="UnV-ux-HHQ" firstAttribute="top" secondItem="FqJ-Lz-xmf" secondAttribute="bottom" id="fzB-QT-aaZ"/>
                             <constraint firstItem="FqJ-Lz-xmf" firstAttribute="leading" secondItem="tTq-rm-k4v" secondAttribute="leading" id="yh1-o3-EB0"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="FqJ-Lz-xmf"/>
+                                <exclude reference="HP1-RA-Qe4"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="fzB-QT-aaZ"/>
                                 <exclude reference="Iw1-1H-IS7"/>
                                 <exclude reference="QLJ-qM-m0e"/>
                                 <exclude reference="yh1-o3-EB0"/>
+                                <exclude reference="Ll1-GW-vEO"/>
+                                <exclude reference="VnW-B9-Gdq"/>
+                                <exclude reference="fzB-QT-aaZ"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
                                 <include reference="FqJ-Lz-xmf"/>
+                                <include reference="HP1-RA-Qe4"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="fzB-QT-aaZ"/>
                                 <include reference="Iw1-1H-IS7"/>
                                 <include reference="QLJ-qM-m0e"/>
                                 <include reference="yh1-o3-EB0"/>
+                                <include reference="Ll1-GW-vEO"/>
+                                <include reference="VnW-B9-Gdq"/>
+                                <include reference="fzB-QT-aaZ"/>
                             </mask>
                         </variation>
                     </view>

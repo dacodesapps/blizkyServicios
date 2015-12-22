@@ -16,7 +16,7 @@
 #import "MapTableViewCell.h"
 #import "LabelTableViewCell.h"
 
-@interface CreateProfileTableViewController ()<UITableViewDataSource,UITableViewDelegate, UITextViewDelegate,UIImagePickerControllerDelegate, CLLocationManagerDelegate, MKMapViewDelegate> {
+@interface CreateProfileTableViewController ()<UITableViewDataSource,UITableViewDelegate, UITextViewDelegate,UIImagePickerControllerDelegate, CLLocationManagerDelegate, MKMapViewDelegate, MapViewControllerDelegate> {
     NSArray *heights;
     NSString*description;
     UITextView *actTxtView;
@@ -112,6 +112,15 @@
         [mapView addGestureRecognizer:longPressGesture];
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGestureOnMap:)];
         [mapView addGestureRecognizer:tapGesture];
+        if (mapAnnotationPin) {
+            if (mapAnnotationPin.coordinate.longitude == mapView.userLocation.coordinate.longitude && mapAnnotationPin.coordinate.latitude == mapView.userLocation.coordinate.latitude) {
+                mapView.showsUserLocation = NO;
+            } else {
+                mapView.showsUserLocation = YES;
+            }
+            [mapView showAnnotations:@[mapAnnotationPin] animated:YES];
+
+        }
         
         return cell;
     } else {
@@ -301,7 +310,6 @@
     
     InicioViewController *revealViewController = [storyboard instantiateViewControllerWithIdentifier:@"Inicio"];
     appDelegateTemp.window.rootViewController = revealViewController;
-    
 }
 
 
@@ -314,8 +322,26 @@
      if ([segue.identifier isEqualToString:@"showMapVC"]) {
          MapViewController *mapVC = (MapViewController *) segue.destinationViewController;
          mapVC.annotationPin = mapAnnotationPin;
+         mapVC.delegate = self;
      }
  }
+
+#pragma mark - MapView Delegate
+
+-(void)goingBack:(MKPointAnnotation *)pin {
+    if (pin) {
+        mapAnnotationPin = pin;
+        if (pin.coordinate.longitude == mapView.userLocation.coordinate.longitude && pin.coordinate.latitude == mapView.userLocation.coordinate.latitude) {
+            mapView.showsUserLocation = NO;
+        } else {
+            mapView.showsUserLocation = YES;
+        }
+        [mapView showAnnotations:@[pin] animated:YES];
+        
+    }
+}
+
+
  
 
 @end
