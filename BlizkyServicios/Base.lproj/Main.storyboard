@@ -438,6 +438,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="button" destination="CcO-Re-gY5" id="8yL-QB-XLv"/>
+                                    <outlet property="label" destination="GRX-Qj-Fsz" id="frG-2n-6j9"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell2" rowHeight="46" id="cfT-Ke-1bf" customClass="OneTextViewTableViewCell">
@@ -943,7 +944,14 @@
                             <outlet property="delegate" destination="yLk-cc-VW9" id="l0M-Fy-Z2H"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Create Profile" id="2nA-dV-nZh"/>
+                    <navigationItem key="navigationItem" title="Create Profile" id="2nA-dV-nZh">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="0Lm-73-kMh">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="cancelButtonPressed:" destination="yLk-cc-VW9" id="o6Z-Xf-yOU"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0ku-iz-g1q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1227,7 +1235,7 @@
         <!--Inicio View Controller-->
         <scene sceneID="VS2-ur-mPG">
             <objects>
-                <viewController id="DUd-xe-lrb" customClass="InicioViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Inicio" id="DUd-xe-lrb" customClass="InicioViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kKG-tN-kOD"/>
                         <viewControllerLayoutGuide type="bottom" id="ck5-gg-IIN"/>
@@ -1513,7 +1521,7 @@
     <resources>
         <image name="1_login_servicio_ios.jpg" width="750" height="1334"/>
         <image name="3_Pantalla_saludo_nuevo_servicio.png" width="750" height="1334"/>
-        <image name="AgregarFoto" width="112" height="135"/>
+        <image name="AgregarFoto" width="112" height="112"/>
         <image name="goToCurrentLocationButton" width="20" height="19"/>
         <image name="selected.png" width="925" height="205"/>
         <image name="unselected.png" width="925" height="205"/>

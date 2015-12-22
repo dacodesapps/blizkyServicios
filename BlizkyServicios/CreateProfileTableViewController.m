@@ -7,13 +7,15 @@
 //
 
 #import "CreateProfileTableViewController.h"
+#import "InicioViewController.h"
+#import "AppDelegate.h"
 
 #import "OneButtonTableViewCell.h"
 #import "OneTextViewTableViewCell.h"
 #import "MapTableViewCell.h"
 #import "LabelTableViewCell.h"
 
-@interface CreateProfileTableViewController ()<UITableViewDataSource,UITableViewDelegate, UITextViewDelegate,UIImagePickerControllerDelegate> {
+@interface CreateProfileTableViewController ()<UITableViewDataSource,UITableViewDelegate, UITextViewDelegate,UIImagePickerControllerDelegate, UIActionSheetDelegate> {
     NSArray *heights;
     NSString*description;
     UITextView *actTxtView;
@@ -116,6 +118,9 @@
             if (imagenSeleccionada) {
                 cell.button.layer.cornerRadius = cell.button.frame.size.width / 2.0;
                 cell.button.clipsToBounds = YES;
+                cell.label.text = @"Edit profile pic.";
+            } else {
+                cell.label.text = @"Add profile pic.";
             }
         }
         
@@ -157,8 +162,10 @@
             [button addTarget:self action:@selector(accionBoton1) forControlEvents:UIControlEventTouchUpInside];
             break;
         case 4:
+            //Picker
             break;
         case 7:
+            //Save
             break;
         default:
             break;
@@ -166,6 +173,31 @@
 }
 
 -(void)accionBoton1 {
+    
+    if (imagenSeleccionada) {
+        
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Blizky" message:@""preferredStyle:UIAlertControllerStyleActionSheet];
+        UIAlertAction *firstAction = [UIAlertAction actionWithTitle:@"Select profile pic" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                [self showPicker];
+        }];
+        UIAlertAction *secondAction = [UIAlertAction actionWithTitle:@"Delete pic" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                imagenSeleccionada = nil;
+                [self.tableView reloadData];
+        }];
+        UIAlertAction *thirdAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+        
+        [alert addAction:firstAction];
+        [alert addAction:secondAction];
+        [alert addAction:thirdAction];
+        
+        [self presentViewController:alert animated:YES completion:nil];
+        
+    } else {
+        [self showPicker];
+    }
+}
+
+-(void) showPicker {
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     picker.allowsEditing = YES;
@@ -250,6 +282,14 @@
     return YES;
 }
 
+- (IBAction)cancelButtonPressed:(id)sender {
+    AppDelegate *appDelegateTemp = [[UIApplication sharedApplication] delegate];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    
+    InicioViewController *revealViewController = [storyboard instantiateViewControllerWithIdentifier:@"Inicio"];
+    appDelegateTemp.window.rootViewController = revealViewController;
+    
+}
 
 /*
  #pragma mark - Navigation
