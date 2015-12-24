@@ -65,6 +65,7 @@
     [self getCategories];
     alreadyLongPressed = NO;
     descargando = NO;
+    mapAnnotationPin = nil;
     UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(resignFirstResponder)];
     [self.view addGestureRecognizer:recognizer];
 }
@@ -195,7 +196,11 @@
         UIAlertAction *firstAction = [UIAlertAction actionWithTitle:@"Select profile pic" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
             [self showImagePicker];
         }];
-        UIAlertAction *secondAction = [UIAlertAction actionWithTitle:@"Delete pic" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+//        UIAlertAction *secondAction = [UIAlertAction actionWithTitle:@"Delete pic" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+//            imagenSeleccionada = nil;
+//            [self.tableView reloadData];
+//        }];
+        UIAlertAction *secondAction = [UIAlertAction actionWithTitle:@"Delete pic" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action) {
             imagenSeleccionada = nil;
             [self.tableView reloadData];
         }];
@@ -226,7 +231,8 @@
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     imagenSeleccionada = info[UIImagePickerControllerEditedImage];
-    
+    NSData *imageData = UIImageJPEGRepresentation(imagenSeleccionada, 1.0);
+    NSLog(@"%@",[NSByteCountFormatter stringFromByteCount:imageData.length countStyle:NSByteCountFormatterCountStyleFile]);
     int width = imagenSeleccionada.size.width;
     int height = imagenSeleccionada.size.height;
     if(width == height || width-height==24) {
@@ -282,11 +288,33 @@
         manager.requestSerializer = [AFHTTPRequestSerializer serializer];
         manager.responseSerializer = [AFHTTPResponseSerializer serializer];
         
+        NSString *link = @"http://69.46.5.166:3002/api/Suppliers";
         
-        NSString *link = @"http://69.46.5.166:3002/api/CategoryServices";
+        NSMutableDictionary *params = [@{@"phone" : self.phonenumber,
+                                 @"serviceName" : serviceName,
+                                 @"managerName" : @" ",
+                                 @"address" : address,
+                                 @"description" :descriptionStr,
+                                 @"profileType" : @"public",
+                                 @"email" : self.email,
+                                 @"categoryservice_id" : categoryService_id,
+                                 @"password" : self.password,
+                                 } mutableCopy];
+
+        if (mapAnnotationPin) {
+           NSDictionary *geoPoint = @{@"lat" : @(mapAnnotationPin.coordinate.latitude),
+                         @"lng" : @(mapAnnotationPin.coordinate.longitude)
+                         };
+            [params setObject:geoPoint forKey:@"location"];
+        }
+//        if (imagenSeleccionada) {
+//            NSData *imageData = UIImageJPEGRepresentation(imagenSeleccionada, 1.0);
+//            NSString *base64 = [imageData base64EncodedStringWithOptions:kNilOptions];
+//            [params setObject:@{@"base64" : base64,
+//                                @"extension" : @"jpg"}  forKey:@"photo"];
+//        }
         
-        NSDictionary *params = @{@"phone": self.phonenumber,
-                                 };
+        NSLog(@"params = %@", params);
         
         [manager POST:link parameters: params success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSArray *arr = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
@@ -341,7 +369,6 @@
     }
     mapAnnotationPin.coordinate = locCoord;
     
-    // [mapView showAnnotations:@[mapAnnotationPin] animated:YES];
     [mapView addAnnotation:mapAnnotationPin];
     mapView.showsUserLocation = YES;
 }
