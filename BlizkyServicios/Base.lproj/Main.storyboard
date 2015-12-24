@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="DUd-xe-lrb">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="zsU-Ko-96H">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -704,61 +704,63 @@
                                     <outlet property="mapView" destination="n3C-3x-Men" id="pwZ-VQ-VX9"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell5" rowHeight="51" id="37e-Bn-bHW" customClass="OneButtonTableViewCell">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell5" rowHeight="51" id="37e-Bn-bHW" customClass="OneTextViewTableViewCell">
                                 <rect key="frame" x="0.0" y="580" width="600" height="51"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="37e-Bn-bHW" id="EsN-Dx-R0S">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="51"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oGH-Q9-sZp">
-                                            <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                            <color key="backgroundColor" red="0.94509803920000002" green="0.94509803920000002" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="   Type in your kind of service(personal trainer, restourant...)" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ETU-pY-pgf">
+                                            <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                            <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="30" id="LaP-fW-BOs"/>
+                                                <constraint firstAttribute="height" constant="30" id="baz-Am-qeP"/>
                                             </constraints>
+                                            <color key="textColor" red="0.71372549019999998" green="0.71372549019999998" blue="0.71372549019999998" alpha="1" colorSpace="calibratedRGB"/>
                                             <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="11"/>
-                                            <state key="normal" title="   Type in your kind of service(personal trainer, restourant...)">
-                                                <color key="titleColor" red="0.71372549019999998" green="0.71372549019999998" blue="0.71372549019999998" alpha="1" colorSpace="calibratedRGB"/>
-                                            </state>
+                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             <variation key="default">
                                                 <mask key="constraints">
-                                                    <exclude reference="LaP-fW-BOs"/>
+                                                    <exclude reference="baz-Am-qeP"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=compact">
                                                 <mask key="constraints">
-                                                    <include reference="LaP-fW-BOs"/>
+                                                    <include reference="baz-Am-qeP"/>
                                                 </mask>
                                             </variation>
-                                        </button>
+                                        </textView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="oGH-Q9-sZp" firstAttribute="top" secondItem="EsN-Dx-R0S" secondAttribute="top" constant="8" id="Rrb-yE-uGk"/>
-                                        <constraint firstAttribute="trailing" secondItem="oGH-Q9-sZp" secondAttribute="trailing" constant="35" id="gsj-ai-hcq"/>
-                                        <constraint firstItem="oGH-Q9-sZp" firstAttribute="leading" secondItem="EsN-Dx-R0S" secondAttribute="leading" constant="35" id="xqO-0K-Stm"/>
+                                        <constraint firstItem="ETU-pY-pgf" firstAttribute="top" secondItem="EsN-Dx-R0S" secondAttribute="top" constant="8" id="4yx-ZI-ZpX"/>
+                                        <constraint firstAttribute="trailing" secondItem="ETU-pY-pgf" secondAttribute="trailing" constant="35" id="Fr3-q5-H8G"/>
+                                        <constraint firstItem="ETU-pY-pgf" firstAttribute="leading" secondItem="EsN-Dx-R0S" secondAttribute="leading" constant="35" id="oHI-gf-pD5"/>
                                     </constraints>
                                     <variation key="default">
                                         <mask key="subviews">
-                                            <exclude reference="oGH-Q9-sZp"/>
+                                            <exclude reference="ETU-pY-pgf"/>
                                         </mask>
                                         <mask key="constraints">
-                                            <exclude reference="Rrb-yE-uGk"/>
-                                            <exclude reference="gsj-ai-hcq"/>
-                                            <exclude reference="xqO-0K-Stm"/>
+                                            <exclude reference="4yx-ZI-ZpX"/>
+                                            <exclude reference="Fr3-q5-H8G"/>
+                                            <exclude reference="oHI-gf-pD5"/>
                                         </mask>
                                     </variation>
                                     <variation key="heightClass=regular-widthClass=compact">
                                         <mask key="subviews">
-                                            <include reference="oGH-Q9-sZp"/>
+                                            <include reference="ETU-pY-pgf"/>
                                         </mask>
                                         <mask key="constraints">
-                                            <include reference="Rrb-yE-uGk"/>
-                                            <include reference="gsj-ai-hcq"/>
-                                            <include reference="xqO-0K-Stm"/>
+                                            <include reference="4yx-ZI-ZpX"/>
+                                            <include reference="Fr3-q5-H8G"/>
+                                            <include reference="oHI-gf-pD5"/>
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="textView" destination="ETU-pY-pgf" id="2ss-YX-lpl"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell6" rowHeight="96" id="jcQ-w0-LVk" customClass="OneTextViewTableViewCell">
                                 <rect key="frame" x="0.0" y="631" width="600" height="96"/>
@@ -958,10 +960,10 @@
             </objects>
             <point key="canvasLocation" x="1561.5" y="537"/>
         </scene>
-        <!--PinPointOnMap-->
+        <!--Pin-point it in the map-->
         <scene sceneID="sz9-q3-AFo">
             <objects>
-                <viewController title="PinPointOnMap" id="mzr-xy-Qn7" customClass="MapViewController" sceneMemberID="viewController">
+                <viewController title="Pin-point it in the map" id="mzr-xy-Qn7" customClass="MapViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ySB-De-eAV"/>
                         <viewControllerLayoutGuide type="bottom" id="UnV-ux-HHQ"/>
@@ -1012,12 +1014,12 @@
                                 <exclude reference="HP1-RA-Qe4"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="VnW-B9-Gdq"/>
+                                <exclude reference="fzB-QT-aaZ"/>
+                                <exclude reference="Ll1-GW-vEO"/>
                                 <exclude reference="Iw1-1H-IS7"/>
                                 <exclude reference="QLJ-qM-m0e"/>
                                 <exclude reference="yh1-o3-EB0"/>
-                                <exclude reference="Ll1-GW-vEO"/>
-                                <exclude reference="VnW-B9-Gdq"/>
-                                <exclude reference="fzB-QT-aaZ"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -1026,12 +1028,12 @@
                                 <include reference="HP1-RA-Qe4"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="VnW-B9-Gdq"/>
+                                <include reference="fzB-QT-aaZ"/>
+                                <include reference="Ll1-GW-vEO"/>
                                 <include reference="Iw1-1H-IS7"/>
                                 <include reference="QLJ-qM-m0e"/>
                                 <include reference="yh1-o3-EB0"/>
-                                <include reference="Ll1-GW-vEO"/>
-                                <include reference="VnW-B9-Gdq"/>
-                                <include reference="fzB-QT-aaZ"/>
                             </mask>
                         </variation>
                     </view>

@@ -26,6 +26,7 @@
 		FB3CBC4C1C29279E004DDC9F /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB3CBC4B1C29279E004DDC9F /* MapViewController.m */; };
 		FB681A971C1B604C00FACD7A /* selected.png in Resources */ = {isa = PBXBuildFile; fileRef = FB681A951C1B604C00FACD7A /* selected.png */; };
 		FB681A981C1B604C00FACD7A /* unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = FB681A961C1B604C00FACD7A /* unselected.png */; };
+		FB9F4FC21C2B5DCF00A2746B /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9F4FC11C2B5DCF00A2746B /* MBProgressHUD.m */; };
 		FBB6AF2B1C248C7100F742B1 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FBB6AF211C248C7100F742B1 /* OpenSans-Bold.ttf */; };
 		FBB6AF2C1C248C7100F742B1 /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FBB6AF221C248C7100F742B1 /* OpenSans-BoldItalic.ttf */; };
 		FBB6AF2D1C248C7100F742B1 /* OpenSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FBB6AF231C248C7100F742B1 /* OpenSans-ExtraBold.ttf */; };
@@ -103,6 +104,8 @@
 		FB3CBC4B1C29279E004DDC9F /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		FB681A951C1B604C00FACD7A /* selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selected.png; sourceTree = "<group>"; };
 		FB681A961C1B604C00FACD7A /* unselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unselected.png; sourceTree = "<group>"; };
+		FB9F4FC01C2B5DCF00A2746B /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		FB9F4FC11C2B5DCF00A2746B /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		FBB6AF211C248C7100F742B1 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
 		FBB6AF221C248C7100F742B1 /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
 		FBB6AF231C248C7100F742B1 /* OpenSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBold.ttf"; sourceTree = "<group>"; };
@@ -227,6 +230,7 @@
 		698A7F1C1C0430CE00B17B4C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				FB9F4FC31C2B5DD400A2746B /* MBProgressHud */,
 				FBB6AF491C2490B400F742B1 /* AFNetworking */,
 				FBB6AF351C248C7F00F742B1 /* Fonts */,
 				698A7F1D1C0430CE00B17B4C /* main.m */,
@@ -265,6 +269,15 @@
 				FBF198931C1F8E6900F72D97 /* LabelTableViewCell.m */,
 			);
 			name = Cells;
+			sourceTree = "<group>";
+		};
+		FB9F4FC31C2B5DD400A2746B /* MBProgressHud */ = {
+			isa = PBXGroup;
+			children = (
+				FB9F4FC01C2B5DCF00A2746B /* MBProgressHUD.h */,
+				FB9F4FC11C2B5DCF00A2746B /* MBProgressHUD.m */,
+			);
+			name = MBProgressHud;
 			sourceTree = "<group>";
 		};
 		FBB6AF351C248C7F00F742B1 /* Fonts */ = {
@@ -473,6 +486,7 @@
 			files = (
 				FBB6AF651C2495AB00F742B1 /* AFURLConnectionOperation.m in Sources */,
 				FBF198901C1F8D7800F72D97 /* MapTableViewCell.m in Sources */,
+				FB9F4FC21C2B5DCF00A2746B /* MBProgressHUD.m in Sources */,
 				FBB6AF641C2495AB00F742B1 /* AFSecurityPolicy.m in Sources */,
 				FBF1988D1C1F8D6000F72D97 /* OneTextViewTableViewCell.m in Sources */,
 				FBB6AF5F1C2495AB00F742B1 /* AFHTTPRequestOperation.m in Sources */,

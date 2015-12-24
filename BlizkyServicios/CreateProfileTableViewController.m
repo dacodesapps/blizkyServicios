@@ -10,20 +10,23 @@
 #import "InicioViewController.h"
 #import "AppDelegate.h"
 #import "MapViewController.h"
+#import "AFNetworking.h"
+#import "MBProgressHUD.h"
 
 #import "OneButtonTableViewCell.h"
 #import "OneTextViewTableViewCell.h"
 #import "MapTableViewCell.h"
 #import "LabelTableViewCell.h"
 
-@interface CreateProfileTableViewController ()<UITableViewDataSource,UITableViewDelegate, UITextViewDelegate,UIImagePickerControllerDelegate, CLLocationManagerDelegate, MKMapViewDelegate, MapViewControllerDelegate> {
-    NSArray *heights;
-    NSString*description;
-    UITextView *actTxtView;
+@interface CreateProfileTableViewController ()<UITableViewDataSource,UITableViewDelegate, UITextViewDelegate,UIImagePickerControllerDelegate, CLLocationManagerDelegate, MKMapViewDelegate, MapViewControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate> {
+    NSArray *heights, *categories;
+    NSString *description, *categoriaSeleccionada;
+    UITextView *actTxtView, *textView1;
     UIImage *imagenSeleccionada;
     MKMapView *mapView;
     MKPointAnnotation *mapAnnotationPin;
-    BOOL alreadyLongPressed;
+    UIPickerView *pickerView;
+    BOOL alreadyLongPressed, descargando;
 }
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
@@ -57,9 +60,18 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self getCategories];
     alreadyLongPressed = NO;
+    descargando = NO;
+    UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(resignFirstResponder)];
+    [self.view addGestureRecognizer:recognizer];
+}
+
+-(void)resignTextViewResponder {
+    NSLog(@"tap Gesture");
+    [actTxtView resignFirstResponder];
 }
 
 #pragma mark - Table view data source
@@ -77,7 +89,7 @@
     NSString *reuseIdentifier = [NSString stringWithFormat:@"cell%d",(int) indexPath.row + 1];
     //NSString *reuseIdentifier = @"cell1";
     
-    if (indexPath.row == 0 || indexPath.row == 4 || indexPath.row == 7) {
+    if (indexPath.row == 0 || indexPath.row == 7) {
         OneButtonTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
         cell.button.tag = indexPath.row;
         if (indexPath.row == 0) {
@@ -96,11 +108,27 @@
         
         return cell;
     }
-    else if (indexPath.row == 1 || indexPath.row == 2 || indexPath.row == 5) {
+    else if (indexPath.row == 1 || indexPath.row == 2 || indexPath.row == 4  || indexPath.row == 5) {
         OneTextViewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
         cell.textView.tag = indexPath.row;
         cell.textView.scrollEnabled = NO;
         cell.textView.delegate = self;
+        cell.textView.returnKeyType = UIReturnKeyDone;
+        
+        if (indexPath.row == 4) {
+            if (categoriaSeleccionada) {
+                cell.textView.text = categoriaSeleccionada;
+            }
+            textView1 = cell.textView;
+            textView1.userInteractionEnabled = !descargando;
+            pickerView = [[UIPickerView alloc] init];
+            pickerView.delegate = self;
+            pickerView.dataSource = self;
+            pickerView.autoresizingMask=UIViewAutoresizingFlexibleWidth;
+            pickerView.showsSelectionIndicator=YES;
+            cell.textView.inputView  = pickerView;
+            
+        }
         
         return cell;
     } else if (indexPath.row == 3) {
@@ -119,7 +147,7 @@
                 mapView.showsUserLocation = YES;
             }
             [mapView showAnnotations:@[mapAnnotationPin] animated:YES];
-
+            
         }
         
         return cell;
@@ -143,11 +171,8 @@
         case 0:
             [button addTarget:self action:@selector(accionBoton1) forControlEvents:UIControlEventTouchUpInside];
             break;
-        case 4:
-            //Picker
-            break;
         case 7:
-            //Save
+            [button addTarget:self action:@selector(accionBoton2) forControlEvents:UIControlEventTouchUpInside];
             break;
         default:
             break;
@@ -210,6 +235,13 @@
     }
 }
 
+-(void)accionBoton2 {
+    
+    
+    
+    
+}
+
 #pragma mark - MapKit
 
 -(void)zoomToUserLocation:(UIButton *) sender {
@@ -222,15 +254,15 @@
     [mapView showAnnotations:@[mapAnnotationPin] animated:YES];
     mapView.showsUserLocation = NO;
     
-//    MKCoordinateRegion region;
-//    region.center = mapView.userLocation.coordinate;
-//    //Adjust span as you like
-//    MKCoordinateSpan span;
-//    span.latitudeDelta  = 1;
-//    span.longitudeDelta = 1;
-//    region.span = span;
-//    
-//    [mapView setRegion:region animated:YES];
+    //    MKCoordinateRegion region;
+    //    region.center = mapView.userLocation.coordinate;
+    //    //Adjust span as you like
+    //    MKCoordinateSpan span;
+    //    span.latitudeDelta  = 1;
+    //    span.longitudeDelta = 1;
+    //    region.span = span;
+    //
+    //    [mapView setRegion:region animated:YES];
 }
 
 -(void)handleLongPressGesture:(UIGestureRecognizer *) sender {
@@ -248,7 +280,7 @@
     }
     mapAnnotationPin.coordinate = locCoord;
     
-   // [mapView showAnnotations:@[mapAnnotationPin] animated:YES];
+    // [mapView showAnnotations:@[mapAnnotationPin] animated:YES];
     [mapView addAnnotation:mapAnnotationPin];
     mapView.showsUserLocation = YES;
 }
@@ -256,15 +288,20 @@
 #pragma mark - TextViewDelegate
 
 -(void)textViewDidBeginEditing:(UITextView *)textView {
-    textView.text = @"";
-    
-    NSIndexPath *path = [NSIndexPath indexPathForRow:textView.tag inSection:0];
-    
-    [self.tableView scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionTop animated:YES];
-    
+    actTxtView = textView;
+    if (textView.tag != 4 || categories) {
+        textView.text = @"";
+        
+        NSIndexPath *path = [NSIndexPath indexPathForRow:textView.tag inSection:0];
+        
+        [self.tableView scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    } else {
+        if (!descargando) {
+            [self getCategories];
+        }
+        [textView resignFirstResponder];
+    }
 }
-
-
 
 -(void)textViewDidEndEditing:(UITextView *)textView {
     
@@ -313,18 +350,18 @@
 }
 
 
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
-     if ([segue.identifier isEqualToString:@"showMapVC"]) {
-         MapViewController *mapVC = (MapViewController *) segue.destinationViewController;
-         mapVC.annotationPin = mapAnnotationPin;
-         mapVC.delegate = self;
-     }
- }
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"showMapVC"]) {
+        MapViewController *mapVC = (MapViewController *) segue.destinationViewController;
+        mapVC.annotationPin = mapAnnotationPin;
+        mapVC.delegate = self;
+    }
+}
 
 #pragma mark - MapView Delegate
 
@@ -341,7 +378,70 @@
     }
 }
 
+#pragma mark - Conection
 
- 
+-(void)getCategories {
+    descargando = YES;
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    
+    NSString *link = @"http://69.46.5.166:3002/api/CategoryServices";
+    
+    [manager GET:link parameters: nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSArray *arr = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
+        
+        NSMutableArray *array = [NSMutableArray new];
+        for(NSDictionary *dct in arr) {
+            [array addObject:dct[@"name"]];
+        }
+        
+        [UIApplication sharedApplication].networkActivityIndicatorVisible=NO;
+        categories = array;
+        descargando = NO;
+        [pickerView reloadAllComponents];
+        [pickerView selectRow:0 inComponent:0 animated:YES];
+        if (textView1) {
+            textView1.userInteractionEnabled = YES;
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error, id responseObject) {
+        
+        NSLog(@"Error: %@", [error description]);
+        [UIApplication sharedApplication].networkActivityIndicatorVisible=NO;
+        descargando = NO;
+    }];
+    
+    
+}
+
+#pragma mark - PickerView
+
+- (void)pickerView:(UIPickerView *)pV didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    categoriaSeleccionada = categories[row];
+    [self.tableView reloadData];
+}
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return categories? 1 : 0;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    return categories.count;
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    return categories[row];
+}
+
+
 
 @end
