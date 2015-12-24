@@ -19,7 +19,7 @@
 #import "LabelTableViewCell.h"
 
 @interface CreateProfileTableViewController ()<UITableViewDataSource,UITableViewDelegate, UITextViewDelegate,UIImagePickerControllerDelegate, CLLocationManagerDelegate, MKMapViewDelegate, MapViewControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate> {
-    NSArray *heights, *categories;
+    NSArray *heights, *categories, *textViews, *categoriesDictionaries;
     NSString *description, *categoriaSeleccionada;
     UITextView *actTxtView, *textView1;
     UIImage *imagenSeleccionada;
@@ -110,6 +110,13 @@
     }
     else if (indexPath.row == 1 || indexPath.row == 2 || indexPath.row == 4  || indexPath.row == 5) {
         OneTextViewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
+        
+        if(!textViews ) {
+            textViews = [NSArray new];
+        }
+        NSMutableArray *arr = [textViews mutableCopy];
+        
+        
         cell.textView.tag = indexPath.row;
         cell.textView.scrollEnabled = NO;
         cell.textView.delegate = self;
@@ -129,6 +136,9 @@
             cell.textView.inputView  = pickerView;
             
         }
+        
+        [arr addObject:cell.textView];
+        textViews = arr;
         
         return cell;
     } else if (indexPath.row == 3) {
@@ -169,13 +179,13 @@
 -(void)configureButtons:(UIButton *)button{
     switch (button.tag) {
         case 0:
-            [button addTarget:self action:@selector(accionBoton1) forControlEvents:UIControlEventTouchUpInside];
-            break;
+        [button addTarget:self action:@selector(accionBoton1) forControlEvents:UIControlEventTouchUpInside];
+        break;
         case 7:
-            [button addTarget:self action:@selector(accionBoton2) forControlEvents:UIControlEventTouchUpInside];
-            break;
+        [button addTarget:self action:@selector(accionBoton2) forControlEvents:UIControlEventTouchUpInside];
+        break;
         default:
-            break;
+        break;
     }
 }
 
@@ -237,6 +247,33 @@
 
 -(void)accionBoton2 {
     
+    NSString *serviceName, *address, *descriptionStr, *categoryService_id;
+    
+    for (UITextView *txtView in textViews) {
+        switch (txtView.tag) {
+            case 1:
+            serviceName = txtView.text;
+            break;
+            case 2:
+            address = txtView.text;
+            break;
+            case 4:
+            for (NSDictionary *dct in categoriesDictionaries) {
+                if ([txtView.text isEqualToString:dct[@"name"]]) {
+                    categoryService_id = dct[@"id"];
+                }
+            }
+            break;
+            case 5:
+            descriptionStr = txtView.text;
+            break;
+            
+            default:
+            break;
+        }
+    }
+    
+    
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -257,7 +294,7 @@
         
         NSLog(@"Error: %@", [error description]);
         [UIApplication sharedApplication].networkActivityIndicatorVisible=NO;
-
+        
     }];
     
     
@@ -420,7 +457,7 @@
         for(NSDictionary *dct in arr) {
             [array addObject:dct[@"name"]];
         }
-        
+        categoriesDictionaries = arr;
         [UIApplication sharedApplication].networkActivityIndicatorVisible=NO;
         categories = array;
         descargando = NO;
