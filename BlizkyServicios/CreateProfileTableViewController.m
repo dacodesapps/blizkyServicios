@@ -179,13 +179,13 @@
 -(void)configureButtons:(UIButton *)button{
     switch (button.tag) {
         case 0:
-        [button addTarget:self action:@selector(accionBoton1) forControlEvents:UIControlEventTouchUpInside];
-        break;
+            [button addTarget:self action:@selector(accionBoton1) forControlEvents:UIControlEventTouchUpInside];
+            break;
         case 7:
-        [button addTarget:self action:@selector(accionBoton2) forControlEvents:UIControlEventTouchUpInside];
-        break;
+            [button addTarget:self action:@selector(accionBoton2) forControlEvents:UIControlEventTouchUpInside];
+            break;
         default:
-        break;
+            break;
     }
 }
 
@@ -252,51 +252,64 @@
     for (UITextView *txtView in textViews) {
         switch (txtView.tag) {
             case 1:
-            serviceName = txtView.text;
-            break;
+                serviceName = [txtView.text isEqualToString:@"  Name (yours or your business)"] ? nil : txtView.text ;
+                break;
             case 2:
-            address = txtView.text;
-            break;
+                address = [txtView.text isEqualToString:@"  Type in your address"] ? nil : txtView.text;
+                break;
             case 4:
-            for (NSDictionary *dct in categoriesDictionaries) {
-                if ([txtView.text isEqualToString:dct[@"name"]]) {
-                    categoryService_id = dct[@"id"];
+                for (NSDictionary *dct in categoriesDictionaries) {
+                    if ([txtView.text isEqualToString:dct[@"name"]]) {
+                        categoryService_id = dct[@"id"];
+                        break;
+                    } else {
+                        categoryService_id = nil;
+                    }
                 }
-            }
-            break;
+                break;
             case 5:
-            descriptionStr = txtView.text;
-            break;
-            
-            default:
-            break;
+                descriptionStr = [txtView.text isEqualToString:@"Description: we'll use this description in your profile and for customers to search for you"] ? nil : txtView.text;
+                break;
         }
     }
     
-    
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
-    
-    NSString *link = @"http://69.46.5.166:3002/api/CategoryServices";
-    
-    NSDictionary *params = @{@"phone": self.phonenumber,
-                             };
-    
-    [manager POST:link parameters: nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSArray *arr = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
+    if(categoryService_id && descriptionStr && serviceName && address) {
         
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error, id responseObject) {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
         
-        NSLog(@"Error: %@", [error description]);
-        [UIApplication sharedApplication].networkActivityIndicatorVisible=NO;
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+        manager.responseSerializer = [AFHTTPResponseSerializer serializer];
         
-    }];
-    
+        
+        NSString *link = @"http://69.46.5.166:3002/api/CategoryServices";
+        
+        NSDictionary *params = @{@"phone": self.phonenumber,
+                                 };
+        
+        [manager POST:link parameters: params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSArray *arr = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
+            
+            NSLog(@"Response: %@", arr);
+            
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error, id responseObject) {
+            
+            NSLog(@"Error: %@", [error description]);
+            [UIApplication sharedApplication].networkActivityIndicatorVisible=NO;
+            
+        }];
+    } else {
+        NSString * str = @"Error: All fields must be filled, please review and fill all the fields.";
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Blizky" message: str preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction* ok = [UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleDefault handler:nil];
+        [alertController addAction:ok];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
+
+    }
     
 }
 
@@ -311,16 +324,6 @@
     mapAnnotationPin.coordinate = mapView.userLocation.coordinate;
     [mapView showAnnotations:@[mapAnnotationPin] animated:YES];
     mapView.showsUserLocation = NO;
-    
-    //    MKCoordinateRegion region;
-    //    region.center = mapView.userLocation.coordinate;
-    //    //Adjust span as you like
-    //    MKCoordinateSpan span;
-    //    span.latitudeDelta  = 1;
-    //    span.longitudeDelta = 1;
-    //    region.span = span;
-    //
-    //    [mapView setRegion:region animated:YES];
 }
 
 -(void)handleLongPressGesture:(UIGestureRecognizer *) sender {
