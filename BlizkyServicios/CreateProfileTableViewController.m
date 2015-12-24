@@ -237,7 +237,28 @@
 
 -(void)accionBoton2 {
     
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    
+    NSString *link = @"http://69.46.5.166:3002/api/CategoryServices";
+    
+    NSDictionary *params = @{@"phone": self.phonenumber,
+                             };
+    
+    [manager POST:link parameters: nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSArray *arr = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error, id responseObject) {
+        
+        NSLog(@"Error: %@", [error description]);
+        [UIApplication sharedApplication].networkActivityIndicatorVisible=NO;
+
+    }];
     
     
 }

@@ -1353,7 +1353,8 @@
                                                 <exclude reference="Yor-hZ-gIK"/>
                                             </mask>
                                         </variation>
-                                        <variation key="heightClass=regular-widthClass=compact">
+                                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                            <rect key="frame" x="0.0" y="0.0" width="142" height="30"/>
                                             <mask key="constraints">
                                                 <include reference="Yor-hZ-gIK"/>
                                             </mask>
@@ -1373,7 +1374,8 @@
                                                 <exclude reference="gh1-rS-2J4"/>
                                             </mask>
                                         </variation>
-                                        <variation key="heightClass=regular-widthClass=compact">
+                                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                            <rect key="frame" x="142" y="0.0" width="64" height="30"/>
                                             <mask key="constraints">
                                                 <include reference="gh1-rS-2J4"/>
                                             </mask>
